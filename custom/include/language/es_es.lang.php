@@ -31,16 +31,6 @@ $GLOBALS['app_list_strings']['sales_stage_dom']=array (
   'closed_lost' => 'Perdido',
   'dead' => 'Muerto',
 );
-$GLOBALS['app_list_strings']['opportunity_lost_reasons_list_c']=array (
-  '' => '',
-  'no_money_conditions' => 'Fuera de presupuesto',
-  'razones_finacieras' => 'Razones financieras',
-  'no_documents_conditions' => 'No cumple requisitos necesaria',
-  'competencia' => 'Eligió competencia',
-  'horarios' => 'Horarios no compatibles',
-  'no_por_el_momento' => 'No por el momento',
-  'none' => 'Otros',
-);
 $GLOBALS['app_list_strings']['lead_status_dom']=array (
   '' => '',
   'Assigned' => 'Asignado',
