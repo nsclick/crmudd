@@ -17,6 +17,20 @@ $hook_array['after_relationship_add'][] = Array(77, 'addRelationship', 'custom/m
 $hook_array['after_relationship_delete'] = Array(); 
 $hook_array['after_relationship_delete'][] = Array(77, 'deleteRelationship', 'custom/modules/Opportunities/OpportunitiesJjwg_MapsLogicHook.php','OpportunitiesJjwg_MapsLogicHook', 'deleteRelationship'); 
 
+$hook_array['before_save'][] = array(
+	1,
+    'Unique Oustanding Quote Opportunity Update',
+    'custom/udd/hooks/modules/Opportunities/OpportunitiesHooks.php',
+    'OpportunitiesHooks',
+    'before_save'
+);
 
+$hook_array['after_save'][] = array(
+	1,
+    'Unique Oustanding Quote Opportunity Update',
+    'custom/udd/hooks/modules/Opportunities/OpportunitiesHooks.php',
+    'OpportunitiesHooks',
+    'after_save'
+);
 
 ?>
