@@ -1,7 +1,7 @@
 <?php
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
-global $current_user;
+global $current_user, $app_list_strings, $app_strings;
 
 require_once ( 'model.php' );
 $model = new SalesPanel_Model ();
@@ -45,7 +45,12 @@ if ( !empty ( $ngQuery ) ) {
 	echo json_encode($response);
 } else {
 	$vendors = $model->get_vendors( $current_user );
+	
 	$courses = $model->get_courses( $current_user );
+	
+//	$model->debug ( $app_list_strings );die;
+//	$model->debug ( $courses );
+//	die;
 
 	ob_start();
 	require_once ( 'view.php' );

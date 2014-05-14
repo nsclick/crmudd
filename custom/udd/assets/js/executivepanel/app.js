@@ -8,10 +8,11 @@ var app = angular.module('executive_app', ['Globals'])
 			'Sedes',
 			'Quotes',
 			'urls',
+			'sedes',
 			'$scope',
 			'$timeout',
 			'$http',
-			function(Vendors, Courses, Sedes, Quotes, urls, $scope, $timeout, $http) {
+			function(Vendors, Courses, Sedes, Quotes, urls, sedes, $scope, $timeout, $http) {
 				$scope.saving 			= false;
 				$scope.showstatusbar 	= false;
 				$scope.sedes 			= [];
@@ -19,11 +20,16 @@ var app = angular.module('executive_app', ['Globals'])
 				$scope.vendors 			= Vendors.list();
 				$scope.courses 			= Courses.list();
 				
+				angular.forEach(sedes, function(sede, index) {
+					$scope.sedes.push({
+						name: 	sede,
+						value:	index
+					});
+				});
+				
 				angular.forEach($scope.courses, function(course) {
 					course.label = ' (' + course.codigo_c + ') - ' + course.name;
 				});
-				
-				console.log($scope);
 				
 				// Debugging
 //				$scope.first_name = 'Luis Carlos';

@@ -1,5 +1,5 @@
 <?php
-// created: 2014-02-03 12:55:32
+// created: 2014-05-07 19:18:01
 $connectors = array (
   'ext_rest_linkedin' => 
   array (
@@ -9,7 +9,7 @@ $connectors = array (
     'directory' => 'modules/Connectors/connectors/sources/ext/rest/linkedin',
     'eapm' => 
     array (
-      'enabled' => true,
+      'enabled' => false,
     ),
     'modules' => 
     array (

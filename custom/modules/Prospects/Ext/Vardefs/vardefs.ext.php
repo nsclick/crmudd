@@ -2,9 +2,43 @@
  //WARNING: The contents of this file are auto-generated
 
 
- // created: 2014-01-20 12:22:35
+ // created: 2014-05-06 15:18:21
 
  
+
+ // created: 2014-05-06 15:18:21
+
+ 
+
+ // created: 2014-05-06 15:18:21
+
+ 
+
+// created: 2013-04-30 14:55:07
+$dictionary["Prospect"]["fields"]["fp_events_prospects_1"] = array (
+  'name' => 'fp_events_prospects_1',
+  'type' => 'link',
+  'relationship' => 'fp_events_prospects_1',
+  'source' => 'non-db',
+  'vname' => 'LBL_FP_EVENTS_PROSPECTS_1_FROM_FP_EVENTS_TITLE',
+);
+
+
+
+$dictionary['Prospect']['fields']['SecurityGroups'] = array (
+  	'name' => 'SecurityGroups',
+    'type' => 'link',
+	'relationship' => 'securitygroups_prospects',
+	'module'=>'SecurityGroups',
+	'bean_name'=>'SecurityGroup',
+    'source'=>'non-db',
+	'vname'=>'LBL_SECURITYGROUPS',
+);
+
+
+
+
+
 
 
 $dictionary['Prospect']['fields']['e_invite_status_fields'] =
@@ -81,41 +115,7 @@ $dictionary['Prospect']['fields']['event_status_id'] =
         'studio' => array('listview' => false),
     );
 
-// created: 2013-04-30 14:55:07
-$dictionary["Prospect"]["fields"]["fp_events_prospects_1"] = array (
-  'name' => 'fp_events_prospects_1',
-  'type' => 'link',
-  'relationship' => 'fp_events_prospects_1',
-  'source' => 'non-db',
-  'vname' => 'LBL_FP_EVENTS_PROSPECTS_1_FROM_FP_EVENTS_TITLE',
-);
-
-
- // created: 2014-01-20 12:22:35
+ // created: 2014-05-06 15:18:21
 
  
-
- // created: 2014-01-20 12:22:35
-
- 
-
- // created: 2014-01-20 12:22:34
-
- 
-
-
-$dictionary['Prospect']['fields']['SecurityGroups'] = array (
-  	'name' => 'SecurityGroups',
-    'type' => 'link',
-	'relationship' => 'securitygroups_prospects',
-	'module'=>'SecurityGroups',
-	'bean_name'=>'SecurityGroup',
-    'source'=>'non-db',
-	'vname'=>'LBL_SECURITYGROUPS',
-);
-
-
-
-
-
 ?>

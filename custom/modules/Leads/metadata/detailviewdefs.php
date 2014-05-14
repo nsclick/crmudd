@@ -1,5 +1,5 @@
 <?php
-// created: 2013-10-20 14:20:14
+// created: 2014-05-07 19:17:38
 $viewdefs = array (
   'Leads' => 
   array (
@@ -51,7 +51,7 @@ $viewdefs = array (
                 ),
               ),
             ),
-            'AOS_GENLET' =>
+            'AOS_GENLET' => 
             array (
               'customCode' => '<input type="button" class="button" onClick="showPopup();" value="{$APP.LBL_GENERATE_LETTER}">',
             ),
@@ -108,14 +108,8 @@ $viewdefs = array (
             0 => 
             array (
               'name' => 'account_name',
-              'displayParams' =>
+              'displayParams' => 
               array (
-                'enableConnectors' => true,
-                'module' => 'Leads',
-                'connectors' =>
-                array (
-                  0 => 'ext_rest_linkedin',
-                ),
               ),
             ),
             1 => 'website',

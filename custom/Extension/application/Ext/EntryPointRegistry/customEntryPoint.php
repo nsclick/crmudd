@@ -21,7 +21,7 @@ $entry_point_registry['webForm2'] = array(
 );
 
 $entry_point_registry['executivePanel'] = array(
-	'file'	=> 'custom/udd/panels/executivepanel/entrypoint.ep.php',
+	'file'	=> 'custom/udd/panels/opportunities_panel/entrypoint.ep.php',
 	'auth'	=> true
 );
 

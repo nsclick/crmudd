@@ -11,17 +11,23 @@
 	
 	<!-- Navbar -->
 	<div class="salespanel_navbar navbar navbar-inverse" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/ref">UDD CRM</a>
-        </div>
-        <div class="">
-          <ul class="nav navbar-nav navbar-right">
-            <!-- <li><a href="#">Dashboard</a></li> -->
-          </ul>
-        </div>
-      </div>
-    </div>
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#"><strong>Informe:</strong> Dashoard de Administraci&oacute;n de Ejecutivos</a>
+	    </div>
+	    <div class="navbar-collapse collapse">
+	      <form class="navbar-form navbar-right" role="form">
+	        <a href="//<?php echo $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME']; ?>" class="btn btn-success">UDD CRM Inicio</a>
+	      </form>
+	    </div><!--/.navbar-collapse -->
+	  </div>
+	</div>
 	<!--/ Navbar -->
 
 	<!-- Status Bar -->
@@ -38,13 +44,10 @@
 	<!-- Status Bar -->
 	
 	<!-- Table -->
-	<div class="container-fluid">
+	<div class="container">
 		
 		<div class="row">
 			<div class="col-md-12">
-				
-				<h2 class="sub-header">Panel de Administraci&oacute;n de Vendedores</h2>
-				<hr />
 
 				<table class="table table-hover">
 					
@@ -82,11 +85,11 @@
 							<td>
 								<div class="btn-group">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-										{{vendor.employee_status}} <span class="caret"></span>
+										{{vendor.status}} <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu" role="menu">
-										<li data-ng-repeat="vendorState in vendorStates">
-											<a href="#" data-ng-click="changeVendorState(vendor, vendorState)">{{vendorState}}</a>
+										<li data-ng-repeat="state in vendorStates">
+											<a href="#" data-ng-click="changeVendorState(vendor, state)">{{state.name}}</a>
 										</li>
 									</ul>
 								</div>
@@ -132,7 +135,7 @@
 									<div class="panel-heading">Cursos Asignados</div>
 									<div class="panel-body">
 										
-										<select class="vendor_courses_select" multiple data-ng-model="vendor.selectedAssignedCourses" data-ng-options="course.name for course in vendor.tmpAssignedCourses"></select>
+										<select size="10" class="vendor_courses_select" multiple data-ng-model="vendor.selectedAssignedCourses" data-ng-options="course.label group by course.sede for course in vendor.tmpAssignedCourses"></select>
 
 									</div>
 								</div>
@@ -160,7 +163,7 @@
 									<div class="panel-heading">Cursos Disponibles</div>
 									<div class="panel-body">
 										
-										<select class="vendor_courses_select" multiple data-ng-model="vendor.selectedAvailableCourses" data-ng-options="course.name for course in vendor.tmpAvailableCourses"></select>
+										<select size="10" class="vendor_courses_select" multiple data-ng-model="vendor.selectedAvailableCourses" data-ng-options="course.label group by course.sede for course in vendor.tmpAvailableCourses"></select>
 
 									</div>
 								</div>
@@ -187,10 +190,14 @@
 	<script>
 		(function(window, angular, undefined) {
 			angular.module('Globals', [])
-
+				
+				.constant('sedes', <?php echo json_encode($app_list_strings['user_sede_c']); ?>)
+				
+				.constant('user_states', <?php echo json_encode($app_list_strings['user_status_dom']); ?>)
+				
 				.constant('urls', {
 					assets: <?php echo '\'' . $assets . '\''; ?>,
-					base: 	<?php echo '\'http://' . $_SERVER['SERVER_NAME'] . '/ref/index.php?entryPoint=administracion\''; ?>
+					base: 	<?php echo '\'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['SCRIPT_NAME'] . '?entryPoint=administracion\''; ?>
 				})
 
 				.service('Vendors', [
@@ -236,10 +243,17 @@
 				.service('Courses', [
 					'$http',
 					'urls',
-					function($http, urls) {
+					'sedes',
+					function($http, urls, sedes) {
 
 						this.list = function() {
 							var courses = <?php echo json_encode($courses); ?>;
+							
+							angular.forEach(courses, function(course) {
+								course.sede 	= sedes[course.sede_c];
+								course.label 	= '(' + course.codigo_c + ') ' + course.name;
+							});
+							
 							return courses;
 						};
 

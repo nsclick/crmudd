@@ -108,14 +108,34 @@ class SalesPanel_Model {
 		// 	$sql .= implode ( ',', $vendors_ids );
 		// 	$sql .= ')';
 		// }
-		// $this->debug ( $sql );die;
+//		 $this->debug ( $sql );die;
 		$users_ids 	= $this->query ( $sql );
 		$users 		= array();
-		foreach ( $users_ids as $user_id ) {
+		foreach ( $users_ids as $user_id ) {			
 			$user 				= BeanFactory::getBean ( 'Users', $user_id['id'] );
-			$user->courses 		= $user->get_linked_beans ( 'users_aos_products_1', 'AOS_Products' );
-			$users[] 			= $user; 
+			$user->courses 		= array();
+			$user_courses 		= $user->get_linked_beans ( 'users_aos_products_1', 'AOS_Products' );
+			
+			foreach ( $user_courses as $uc) {
+				$user_course = new stdClass();
+				$properties = array ( 'id', 'name' );
+				foreach ( $properties as $p ) {
+					$user_course->$p = $uc->$p;
+				}
+				
+				$user->courses[] = $user_course;
+			} 
+			
+			$u = new stdClass();
+			$u_properties = array ( 'id', 'name', 'courses', 'status', 'receive_sales_c', 'sales_qty_c', 'sede_c' );
+			foreach ( $u_properties as $up ) {
+				$u->$up = $user->$up;
+			}
+			$users[] 			= $u; 
 		}
+		
+//		$this->debug ( $users );
+//		die;
 		
 		return $users;
 	}
@@ -172,7 +192,14 @@ class SalesPanel_Model {
 		$courses_ids 	= $this->query ( $sql );
 		$courses 		= array();
 		foreach ( $courses_ids as $course_id ) {
-			$courses[] = BeanFactory::getBean ( 'AOS_Products', $course_id['id'] );
+			$course = BeanFactory::getBean ( 'AOS_Products', $course_id['id'] );
+			$c 		= new stdClass();
+			$course_properties = array ( 'id', 'name', 'sede_c', 'codigo_c' );
+			foreach ( $course_properties as $course_property ) {
+				$c->$course_property = $course->$course_property;
+			}
+			
+			$courses[] = $c;
 		}
 
 		return $courses;
@@ -212,6 +239,37 @@ class SalesPanel_Model {
 		}
 
 		return $rows;
+	}
+	
+	/**
+     * sendMail
+     *
+     * Read more about this function at: http://developer.sugarcrm.com/2011/08/15/howto-send-and-archive-an-email-in-sugar-via-php
+     */
+	public function sendEmail ( $emailTo, $emailSubject, $emailBody, $emailBCC = array() ) {
+		$emailObj = new Email();
+		$defaults = $emailObj->getSystemDefaultEmail();
+		$mail = new SugarPHPMailer();
+		$mail->setMailerForSystem();
+		$mail->CharSet = 'UTF-8';
+		// $mail->From = $defaults['email'];
+		$mail->From = 'no-responder@inalco.cl'; // No-reply email address
+		$mail->FromName = $defaults['name'];
+		$mail->ClearAllRecipients();
+		$mail->ClearReplyTos();
+		$mail->Subject=from_html($emailSubject);
+		$mail->Body=$emailBody;
+		$mail->AltBody=from_html($emailBody);
+		$mail->prepForOutbound();
+		$mail->AddAddress($emailTo);
+
+		foreach ( $emailBCC as $bcc ) {
+		  $mail->AddBCC( $bcc );
+		}
+
+		if (@$mail->Send()) {
+
+		}
 	}
 
 	// /**

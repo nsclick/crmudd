@@ -10,12 +10,6 @@ $GLOBALS['app_list_strings']['opportunity_lost_reasons_list_c ']=array (
   'no_por_el_momento' => 'No por el momento',
   'none' => 'Otros',
 );
-
-$GLOBALS['app_list_strings']['user_sede_c']=array (
-  'none' => 'Ninguna',
-  'concepcion' => 'Concepción',
-  'santiago' => 'Santiago',
-);
 $GLOBALS['app_list_strings']['sales_stage_dom']=array (
   'assigned' => 'Asignado',
   'Prospecting' => 'En Proceso',
@@ -38,11 +32,6 @@ $GLOBALS['app_list_strings']['lead_status_dom']=array (
   'Converted' => 'Convertido',
   'Dead' => 'Perdido',
 );
-$GLOBALS['app_list_strings']['destaque_cot_list']=array (
-  'destacado' => 'Destacado',
-  'no_destacado' => 'No destacado',
-);
-
 $GLOBALS['app_list_strings']['sales_stage_dom']=array (
   'Prospecting' => 'Interesado',
   'document_sent' => 'En proceso de Calificación',
@@ -50,13 +39,6 @@ $GLOBALS['app_list_strings']['sales_stage_dom']=array (
   'closed_won' => 'Ganado',
   'closed_lost' => 'Perdido',
 );
-
-$GLOBALS['app_list_strings']['product_type_dom']=array (
-  'diplomaed' => 'Diplomado',
-  'course' => 'Curso',
-  'postgraduate' => 'Postgrado',
-);
-
 $GLOBALS['app_list_strings']['tipo_producto']=array (
   'diplomado' => 'Diplomado',
   'postgrado' => 'Postgrado',
@@ -73,3 +55,39 @@ $GLOBALS['app_list_strings']['calls_names_list_c']=array (
 );
 $app_list_strings['moduleList']['AOS_Quotes']='Pre-Postulaciones';
 $app_list_strings['moduleListSingular']['AOS_Quotes']='Pre-Postulación';
+$GLOBALS['app_list_strings']['user_sede_c']=array (
+  'none' => 'Ninguna',
+  'concepcion' => 'Concepción',
+  'santiago' => 'Santiago',
+  'curico' => 'Curicó',
+  'iquique' => 'Iquique',
+  'puerto_month' => 'Puerto Month',
+  'vina_del_mar' => 'Viña del Mar',
+  'antofagasta' => 'Antofagasta',
+);
+$GLOBALS['app_list_strings']['destaque_cot_list']=array (
+  'destacado' => 'Destacado',
+  'no_destacado' => 'No destacado',
+);
+$GLOBALS['app_list_strings']['sales_probability_dom']=array (
+  'Prospecting' => '10',
+  'Qualification' => '20',
+  'Needs Analysis' => '25',
+  'Value Proposition' => '30',
+  'Id. Decision Makers' => '40',
+  'Perception Analysis' => '50',
+  'Proposal/Price Quote' => '65',
+  'Negotiation/Review' => '80',
+  'Closed Won' => '100',
+  '' => '',
+  'document_sent' => '40',
+  'payment_visit' => '60',
+  'closed_won' => '100',
+);
+
+$GLOBALS['app_list_strings']['product_type_dom']=array (
+  'diplomaed' => 'Diplomado',
+  'course' => 'Curso',
+  'postgraduate' => 'Postgrado',
+  'curso' => 'Taller',
+);

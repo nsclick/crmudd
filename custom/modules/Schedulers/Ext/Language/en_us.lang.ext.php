@@ -2,10 +2,6 @@
  //WARNING: The contents of this file are auto-generated
 
 
-$mod_strings['LBL_AODOPTIMISEINDEX'] = 'Optimise Advanced OpenDiscovery Index';
-$mod_strings['LBL_AODINDEXUNINDEXED'] = 'Index unindexed documents';
-
-
 /**
  * Advanced OpenWorkflow, Automating SugarCRM.
  * @package Advanced OpenWorkflow for SugarCRM
@@ -32,6 +28,10 @@ $mod_strings['LBL_AODINDEXUNINDEXED'] = 'Index unindexed documents';
 $mod_strings['LBL_PROCESSAOW_WORKFLOW']='Process AOW Workflow';
 
 
+
+
+$mod_strings['LBL_AODOPTIMISEINDEX'] = 'Optimise Advanced OpenDiscovery Index';
+$mod_strings['LBL_AODINDEXUNINDEXED'] = 'Index unindexed documents';
 
 
 /**

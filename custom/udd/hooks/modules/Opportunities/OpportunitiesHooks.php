@@ -3,23 +3,26 @@
 class OpportunitiesHooks {
 	protected $previous_validated_c = 0;
 	protected $previous_audited_c 	= 0;
-	protected $run = false;
 	
 	public function before_save ( $bean, $event, $arguments ) {
 		$opportunity = BeanFactory::getBean ( 'Opportunities', $bean->id );
-		if ( empty ( $opportunity ) ) {
-			$this->on_create = true;
+		
+		if ( !empty ( $opportunity ) ) {
+			$bean->on_edit = true;
 		}
+		
+		$bean->previous_validated_c = $bean->validated_c;
+		$bean->previous_audited_c 	= $bean->audited_c;
 	}
 	
 	public function after_save ( $bean, $event, $arguments ) {
-		if ( !$this->on_create )
+		if ( !$bean->on_edit )
 			return;
 		
 		/**
 		 * If validated_c is checked
 		 */
-		if ( $this->previous_validated_c == 0 && $bean->validated_c == 1 ) {
+		if ( $bean->previous_validated_c == 0 && $bean->validated_c == 1 ) {
 			$mail_to 		= 'ljayk@nsclick.cl';
 			$mail_subject	= 'Validado';
 			$mail_body 		= $this->validated_email ( $bean );
@@ -30,7 +33,7 @@ class OpportunitiesHooks {
 		/**
 		 * If audited is checked
 		 */
-		if ( $this->previous_audited_c == 0 && $bean->audited_c == 1 ) {
+		if ( $bean->previous_audited_c == 0 && $bean->audited_c == 1 ) {
 			$user 			= BeanFactory::getBean ( 'Users', $bean->assigned_user_id );
 			$primary_email 	= $user->emailAddress->getPrimaryAddress ( $user );
 			$primary_email = 'fpawlik@nsclick.cl';

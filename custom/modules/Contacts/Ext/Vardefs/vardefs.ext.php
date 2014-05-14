@@ -2,6 +2,44 @@
  //WARNING: The contents of this file are auto-generated
 
 
+ // created: 2014-05-06 15:18:19
+
+ 
+
+// created: 2013-04-15 12:13:27
+$dictionary["Contact"]["fields"]["fp_events_contacts"] = array (
+  'name' => 'fp_events_contacts',
+  'type' => 'link',
+  'relationship' => 'fp_events_contacts',
+  'source' => 'non-db',
+  'vname' => 'LBL_FP_EVENTS_CONTACTS_FROM_FP_EVENTS_TITLE',
+);
+
+
+ // created: 2014-05-06 15:18:19
+
+ 
+
+ // created: 2014-05-06 15:18:19
+
+ 
+
+
+$dictionary['Contact']['fields']['SecurityGroups'] = array (
+  	'name' => 'SecurityGroups',
+    'type' => 'link',
+	'relationship' => 'securitygroups_contacts',
+	'module'=>'SecurityGroups',
+	'bean_name'=>'SecurityGroup',
+    'source'=>'non-db',
+	'vname'=>'LBL_SECURITYGROUPS',
+);
+
+
+
+
+
+
 /**
  *
  * @package Advanced OpenPortal
@@ -75,5 +113,141 @@ $dictionary["Contact"]["fields"]["portal_user_type"] = array (
     'len' => '100',
     'default' => 'Single',
 );
+ 
+
+
+$dictionary['Contact']['fields']['e_invite_status_fields'] =
+		array (
+			'name' => 'e_invite_status_fields',
+			'rname' => 'id',
+			'relationship_fields'=>array('id' => 'event_invite_id', 'invite_status' => 'event_status_name'),
+			'vname' => 'LBL_CONT_INVITE_STATUS',
+			'type' => 'relate',
+			'link' => 'fp_events_contacts',
+			'link_type' => 'relationship_info',
+            'join_link_name' => 'fp_events_contacts',
+			'source' => 'non-db',
+			'importable' => 'false',
+            'duplicate_merge'=> 'disabled',
+			'studio' => false,
+		);
+
+$dictionary['Contact']['fields']['event_status_name'] =
+		array(
+            'massupdate' => false,
+            'name' => 'event_status_name',
+            'type' => 'enum',
+            'studio' => 'false',
+            'source' => 'non-db',
+            'vname' => 'LBL_LIST_INVITE_STATUS_EVENT',
+            'options' => 'fp_event_invite_status_dom',
+            'importable' => 'false',
+        );
+$dictionary['Contact']['fields']['event_invite_id'] =
+    array(
+        'name' => 'event_invite_id',
+        'type' => 'varchar',
+        'source' => 'non-db',
+        'vname' => 'LBL_LIST_INVITE_STATUS',
+        'studio' => array('listview' => false),
+    );
+
+
+$dictionary['Contact']['fields']['e_accept_status_fields'] =
+        array (
+            'name' => 'e_accept_status_fields',
+            'rname' => 'id',
+            'relationship_fields'=>array('id' => 'event_status_id', 'accept_status' => 'event_accept_status'),
+            'vname' => 'LBL_CONT_ACCEPT_STATUS',
+            'type' => 'relate',
+            'link' => 'fp_events_contacts',
+            'link_type' => 'relationship_info',
+            'join_link_name' => 'fp_events_contacts',
+            'source' => 'non-db',
+            'importable' => 'false',
+            'duplicate_merge'=> 'disabled',
+            'studio' => false,
+        );
+
+
+$dictionary['Contact']['fields']['event_accept_status'] =
+        array(
+            'massupdate' => false,
+            'name' => 'event_accept_status',
+            'type' => 'enum',
+            'studio' => 'false',
+            'source' => 'non-db',
+            'vname' => 'LBL_LIST_ACCEPT_STATUS_EVENT',
+            'options' => 'fp_event_status_dom',
+            'importable' => 'false',
+        );
+$dictionary['Contact']['fields']['event_status_id'] =
+    array(
+        'name' => 'event_status_id',
+        'type' => 'varchar',
+        'source' => 'non-db',
+        'vname' => 'LBL_LIST_ACCEPT_STATUS',
+        'studio' => array('listview' => false),
+    );
+
+
+$dictionary["Contact"]["fields"]["aos_quotes"] = array (
+  'name' => 'aos_quotes',
+    'type' => 'link',
+    'relationship' => 'contact_aos_quotes',
+    'module'=>'AOS_Quotes',
+    'bean_name'=>'AOS_Quotes',
+    'source'=>'non-db',
+);
+$dictionary["Contact"]["relationships"]["contact_aos_quotes"] = array (
+	'lhs_module'=> 'Contacts', 
+	'lhs_table'=> 'contacts', 
+	'lhs_key' => 'id',
+	'rhs_module'=> 'AOS_Quotes', 
+	'rhs_table'=> 'aos_quotes', 
+	'rhs_key' => 'billing_contact_id',
+	'relationship_type'=>'one-to-many',
+);
+
+$dictionary["Contact"]["fields"]["aos_invoices"] = array (
+  'name' => 'aos_invoices',
+    'type' => 'link',
+    'relationship' => 'contact_aos_invoices',
+    'module'=>'AOS_Invoices',
+    'bean_name'=>'AOS_Invoices',
+    'source'=>'non-db',
+);
+$dictionary["Contact"]["relationships"]["contact_aos_invoices"] = array (
+	'lhs_module'=> 'Contacts', 
+	'lhs_table'=> 'contacts', 
+	'lhs_key' => 'id',
+	'rhs_module'=> 'AOS_Invoices', 
+	'rhs_table'=> 'aos_invoices', 
+	'rhs_key' => 'billing_contact_id',
+	'relationship_type'=>'one-to-many',
+);
+
+$dictionary["Contact"]["fields"]["aos_contracts"] = array (
+  'name' => 'aos_contracts',
+    'type' => 'link',
+    'relationship' => 'contact_aos_contracts',
+    'module'=>'AOS_Contracts',
+    'bean_name'=>'AOS_Contracts',
+    'source'=>'non-db',
+);
+$dictionary["Contact"]["relationships"]["contact_aos_contracts"] = array (
+	'lhs_module'=> 'Contacts', 
+	'lhs_table'=> 'contacts', 
+	'lhs_key' => 'id',
+	'rhs_module'=> 'AOS_Contracts', 
+	'rhs_table'=> 'aos_contracts', 
+	'rhs_key' => 'contact_id',
+	'relationship_type'=>'one-to-many',
+);
+
+
+
+ // created: 2014-05-06 15:18:19
+
  
 ?>

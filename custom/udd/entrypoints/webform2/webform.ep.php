@@ -4,7 +4,8 @@ if ( !defined ( 'sugarEntry' ) || !sugarEntry ) die ( 'Not a valid entry point.'
 /**
  * Variables
  */
-global $current_user;
+global $current_user, $app_list_strings, $app_strings;
+
 $response 		= array();
 $product_code	= $_GET['product_id'];
 $first_name		= $_GET['first_name'];
@@ -13,6 +14,17 @@ $email			= $_GET['email'];
 $phone			= $_GET['phone'];
 $sede			= $_GET['sede'];
 $campaign_id	= isset ( $_GET['campaign_id'] ) ? $_GET['campaign_id'] : null;
+$is_brochure 	= isset ( $_GET['brochure'] ) ? true : false;
+
+/**
+ * Include WebForm EntryPoint Helper
+ */
+require_once ( 'webform.helper.ep.php' );
+
+/**
+ * Instantiate EntryPoint Helper
+ */
+$helper = new WebFormEPHelper();
 
 /**
  * Validate required fields
@@ -35,15 +47,6 @@ if (
 	die;
 }
 
-/**
- * Include WebForm EntryPoint Helper
- */
-require_once ( 'webform.helper.ep.php' );
-
-/**
- * Instantiate EntryPoint Helper
- */
-$helper = new WebFormEPHelper();
 /**
  * Identify account and product
  */
@@ -144,15 +147,18 @@ if ( !empty ( $account ) ) {
 			'telefono_cot_c'		=> $phone,
 			'destaque_cot_c'		=> 'destacado'
 		);
-	 	
-	 	
+		
+		if ( $is_brochure ) {
+			$quoteData['name'] = 'BRO ' . $product->codigo_c . '] ' . $first_name . ' ' . $last_name;
+		}
+		
 	 	$opportunity = $helper->createOpportunityForExecutive ( $executive, $product, $opportunityData, $quoteData );
 	 	
 	 	// Increment executive sales counter
-		if ( !empty ( $opportunity->id ) ) {
-			$executive->sales_qty_c = is_numeric ( $executive->sales_qty_c) ? $executive->sales_qty_c + 1 : 1;
-			$executive->save();
-		}
+//		if ( !empty ( $opportunity->id ) ) {
+//			$executive->sales_qty_c = is_numeric ( $executive->sales_qty_c) ? $executive->sales_qty_c + 1 : 1;
+//			$executive->save();
+//		}
 	 	
 	 }
 	/**
@@ -227,6 +233,10 @@ if ( !empty ( $account ) ) {
 				'telefono_cot_c'		=> $phone,
 				'destaque_cot_c'		=> 'destacado'
 			);
+			
+			if ( $is_brochure ) {
+				$quoteData['name'] = 'BRO ' . $product->codigo_c . '] ' . $first_name . ' ' . $last_name;
+			}
 	 		
 	 		$opportunity = $helper->createOpportunityForExecutive ( $executive, $product, $opportunityData, $quoteData );
 	 		
@@ -266,6 +276,10 @@ if ( !empty ( $account ) ) {
 				'destaque_cot_c'		=> 'no_destacado'
 			);
 			
+			if ( $is_brochure ) {
+				$quoteData['name'] = 'BRO ' . $product->codigo_c . '] ' . $first_name . ' ' . $last_name;
+			}
+			
 //			$helper->debug ( $quoteData );
 			
 			$quote = $helper->createProductQuote ( $quoteData, $product );
@@ -275,11 +289,26 @@ if ( !empty ( $account ) ) {
 		
 	}
 	
-	// Send email
+	/**
+	 * Send Email
+	 */
+	$tpl = new Sugar_Smarty();
+	$tpl->assign ( 'name', $first_name . ' ' . $last_name );
+	$tpl->assign ( 'product_type', $app_list_strings['product_type_dom'][$product->type] );
+	$tpl->assign ( 'executive_name', $executive->full_name );
+	$tpl->assign ( 'executive_email', $executive->email1 );
+	$tpl->assign ( 'executive_charge', $executive->title  );
+	$tpl->assign ( 'executive_phone', $executive->phone_work );
+	$email_body = $tpl->fetch ( 'custom/udd/tpls/emails/webform.response.tpl' );
+	
+	$helper->sendEmail ( 'ljayk@nsclick.cl', 'Prueba', $email_body );
+//	echo $email_body;
+//	exit;
+	
 	$email_body = "
 		<h2>Gracias por cotizar con nosotros.</h2>
 			";
-	$helper->sendEmail ( $email, 'Cotización curso UDD', $email_body );
+//	$helper->sendEmail ( $email, 'Cotización curso UDD', $email_body );
 	
 	$response = array (
 		'success'	=> true

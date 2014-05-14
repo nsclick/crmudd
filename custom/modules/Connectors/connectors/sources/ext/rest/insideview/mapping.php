@@ -1,19 +1,7 @@
 <?php
-// created: 2014-02-03 12:55:31
+// created: 2014-05-07 19:17:38
 $mapping = array (
   'beans' => 
   array (
-    'Accounts' => 
-    array (
-    ),
-    'Contacts' => 
-    array (
-    ),
-    'Leads' => 
-    array (
-    ),
-    'Opportunities' => 
-    array (
-    ),
   ),
 );

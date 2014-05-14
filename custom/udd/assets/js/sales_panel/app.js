@@ -1,5 +1,5 @@
 (function(window, angular, undefined) {
-
+//
 var app = 	angular.module('sales_vendor_app', ['Globals'])
 				
 
@@ -7,17 +7,26 @@ var app = 	angular.module('sales_vendor_app', ['Globals'])
 					'Vendors',
 					'Courses',
 					'urls',
+					'sedes',
+					'user_states',
 					'$scope',
 					'$timeout',
 					'$http',
-					function(Vendors, Courses, urls, $scope, $timeout, $http) {
+					function(Vendors, Courses, urls, sedes, user_states, $scope, $timeout, $http) {
 						$scope.saving 			= false;
 						$scope.showstatusbar 	= false;
-						$scope.vendorStates 	= ['Activo', 'Inactivo', 'Despedido', 'Vacaciones'];
+						$scope.vendorStates 	= [];
+						
+						angular.forEach(user_states, function(user_state, index) {
+							$scope.vendorStates.push({
+									name: 	user_state,
+									value:  index
+							});
+						});
 
 						$scope.vendors 			= Vendors.list();
 						$scope.availableCourses = Courses.list();
-
+						
 						// And now that we have vendors and courses, mix them
 						angular.forEach($scope.vendors, function(vendor) {
 							vendor.tmpAssignedCourses 	= [];
@@ -75,8 +84,8 @@ var app = 	angular.module('sales_vendor_app', ['Globals'])
 						};
 
 						$scope.changeVendorState = function(vendor, vendorState) {
-							vendor.employee_status 	= vendorState;
-							vendor.status 			= vendorState;
+							vendor.employee_status 	= vendorState.value;
+							vendor.status 			= vendorState.value;
 
 							save_vendor(vendor);
 						};

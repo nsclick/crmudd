@@ -261,11 +261,9 @@ class WebFormEPHelper {
 		$account_diplomaed_seller_c 	= $account->user_id_c;
 		$account_postgraduate_seller_c 	= $account->user_id1_c;
 
-		// $this->debug ( $account_postgraduate_seller_c );
-
 		// Retrieve diplomaed executive if exists
 		if ( ( $product->type == 'diplomaed' || $product->type == 'course' ) && !empty ( $account_diplomaed_seller_c ) ) {
-			// $this->debug ( $account );
+			
 			return BeanFactory::getBean ( 'Users', $account_diplomaed_seller_c );
 		} 
 		// Retrieve postgraduate executive if exists
@@ -348,7 +346,7 @@ class WebFormEPHelper {
 	        'parent_id'               => $quote->id,
 	        'product_id'              => $product->id
 		);
-
+		
 		$product_quote_r = $this->createBean ( 'AOS_Products_Quotes', $product_quote_data );
 
 		return $quote;
@@ -365,6 +363,7 @@ class WebFormEPHelper {
 		
 		$quoteData['opportunity_id'] 	= $opportunity->id;
 		$quote 							= $this->createProductQuote ( $quoteData, $product );
+		
 		$executive->sales_qty_c 		= is_numeric ( $ex->sales_qty_c) ? $ex->sales_qty_c + 1 : 1;
 		$executive->save();
 		
